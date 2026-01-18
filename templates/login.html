@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Login - AdminBuddy 2.0</title>
+        <meta name="description" content="AdminBuddy 2.0 - Gestiona tus finanzas de manera sencilla">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+        <div class="login-container">
+            <h1>Iniciar sesión</h1>
+            <form action="{{ url_for('handle_login')}}" method="POST">
+                <input type="email" name="email" placeholder="Correo electrónico" required>
+                <input type="password" name="password" placeholder="Contraseña" required>
+                <button type="submit">Entrar</button>
+            </form>
+            <p><a href="{{ url_for('index') }}">Volver</a></p>
+        </div>
+    </body>
+</html>
