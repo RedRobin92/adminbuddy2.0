@@ -1,9 +1,12 @@
+from werkzeug.security import generate_password_hash, check_password_hash, check_password_hash
+
 import os
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = 'tu_llave_secreta_super_segura_123' #123
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'adminbuddy.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -28,11 +31,17 @@ class Transaction(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    nombre=session.get('user_nombre')
+    return render_template('index.html', nombre=nombre)
 
 @app.route('/login')
 def login_view():
     return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
 
 @app.route('/register')
 def register_view():
@@ -49,13 +58,15 @@ def handle_register():
 
     if password != confirm_password:
         return "Las contraseñas no coinciden. <a href='/register'>Vuelve a intentar</a>"
-    
+
+    hashed_password = generate_password_hash(password)
+
     nuevo_usuario = User(
         nombre=nombre,
         apellido=apellido,
         email=email,
         moneda=moneda,
-        password=password
+        password=hashed_password
     )
 
     try:
@@ -72,11 +83,15 @@ def handle_register():
 def handle_login():
     email = request.form.get('email')
     password = request.form.get('password')
+
     user = User.query.filter_by(email=email).first()
-    if user and user.password == password:
-        return f"<h1>Bienvenido, {user.nombre}!</h1><p>Inicio de sesión exitoso.</p>"
+
+    if user and check_password_hash(user.password, password):
+        session['user_id'] = user.id
+        session['user_nombre'] = user.nombre
+        return redirect(url_for('index'))
     else:
-        return "Correo o contraseña incorrectos. <a href='/login'>Vuelve a intentarlo.</a>"
+        return "Credenciales incorrectas. <a href='/login'>Vuelve a intentarlo.</a>"
 
 if __name__ == '__main__':
     with app.app_context():
