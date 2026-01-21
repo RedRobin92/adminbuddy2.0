@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>AdminBuddy 2.0 - Registro</title>
+        <meta name="description" content="AdminBuddy 2.0 - Gestiona tus finanzas de manera sencilla">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+        <div class="login-container">
+            <h1>Crear cuenta</h1>
+            <form action="{{ url_for('handle_register') }}" method="POST">
+                <input type="text" name="nombre" placeholder="Nombre" required>
+                <input type="text" name="apellido" placeholder="Apellido" required>
+                <input type="email" name="email" placeholder="Correo electrónico" required>
+                <select name="moneda" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 8px;">
+                    <option value="VES">Bolívar venezolano (VES)</option>
+                    <option value="USD">Dólar estadounidense (USD)</option>
+                    <option value="EUR">Euro (EUR)</option>
+                </select>
+                <input type="password" name="password" placeholder="Contraseña" required>
+                <input type="password" name="confirm_password" placeholder="Repite la contraseña" required>
+                <button type="submit" style="background-color: #1498db;">Completar registro</button>
+            </form>
+            <p><a href="{{ url_for('index') }}">Volver</a></p>
+        </div>
+    </body>
+</html>
