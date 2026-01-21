@@ -61,7 +61,8 @@ def handle_register():
     try:
         db.session.add(nuevo_usuario)
         db.session.commit()
-        return "Registro exitoso. <a href='/Login'>Iniciar sesión</a>"
+        login_url = url_for('login_view')
+        return f"Registro exitoso. <a href='{login_url}'>Iniciar sesión</a>"
     except Exception as e:
         db.session.rollback()
         print(f"Error: {e}")
@@ -69,7 +70,13 @@ def handle_register():
 
 @app.route('/handle_login', methods=['POST'])
 def handle_login():
-    return "Backend recibio los datos de login."
+    email = request.form.get('email')
+    password = request.form.get('password')
+    user = User.query.filter_by(email=email).first()
+    if user and user.password == password:
+        return f"<h1>Bienvenido, {user.nombre}!</h1><p>Inicio de sesión exitoso.</p>"
+    else:
+        return "Correo o contraseña incorrectos. <a href='/login'>Vuelve a intentarlo.</a>"
 
 if __name__ == '__main__':
     with app.app_context():
