@@ -9,17 +9,15 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <div class="login-container">
-            <h1>Bienvenido a AdminBuddy 2.0{% if nombre %}, {{ nombre }}{% endif %}</h1>
-            {% if nombre %}
+        <div class="auth-container">
+            <div class="auth-card">
+                <h1>Bienvenido a AdminBuddy 2.0</h1>
                 <p>Gestiona tus finanzas de manera sencilla.</p>
-                <a href="{{ url_for('logout') }}"><button style="background-color: #e74c3c;">Cerrar Sesión</button></a>
-            {% else %}
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <a href="{{ url_for('login_view') }}"><button>Iniciar sesion</button></a>
-                    <a href="{{ url_for('register_view') }}"><button style="background-color: #3498db;">Registrarse</button></a>
+                <div style="display: flex; flex-direction: column; gap: 15px; margin-top:20px;">
+                    <a href="{{ url_for('login_view') }}" class="btn-primary" style="text-decoration: none;">Iniciar sesion</a>
+                    <a href="{{ url_for('register_view') }}" style="color: var(--primary); text-decoration: none; font-weight: bold;">Registrarse</a>
+                </div>
             </div>
-            {% endif %}
         </div>
     </body>
 </html>

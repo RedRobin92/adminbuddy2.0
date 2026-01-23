@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head lang="es">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Tu Dashboard - AdminBuddy</title>
+        <meta name="description" content="Panel de administración de AdminBuddy">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+        <nav>
+            <span>AdminBuddy 2.0</span>
+            <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+        </nav>
+
+        <main class="dashboard-container">
+            <header class="dashboard-header">
+                <h1>Hola {{ nombre }} 🫶🏼</h1>
+                <p>Bienvenido a tu herramienta de organización financiera, <strong>Este es el estado de tus finanzas hoy.</strong></p>
+            </header>
+            
+            <section class="main-balance">
+                <div class="card total-balance">
+                    <h3>Balance Total</h3>
+                    <p class="Saldo">$0.00</p>
+                </div>
+            </section>
+
+            <section class="stats-grid">
+                <div class="card income">
+                    <h4>Ingresos</h4>
+                    <p>+$ 0.00</p>
+                </div>
+                <div class="card expenses">
+                    <h4>Gastos</h4>
+                    <p>-$ 0.00</p>
+                </div>
+                <div class="card debts">
+                    <h4>Cashea</h4>
+                    <p>$ 0.00</p>
+            </section>
+            <section class="actions">
+                <button class="btn-primary">+ Registrar Transacción</button>
+            </section>
+        </main>
+
+        <div class="balance-card">
+            <h2>Balance Total</h2>
+            <p>Saldo actual: $0.00</p>
+        </div>
+
+    </body>
+</html>

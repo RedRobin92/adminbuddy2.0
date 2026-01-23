@@ -9,22 +9,27 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     </head>
     <body>
-        <div class="login-container">
-            <h1>Crear cuenta</h1>
-            <form action="{{ url_for('handle_register') }}" method="POST">
-                <input type="text" name="nombre" placeholder="Nombre" required>
-                <input type="text" name="apellido" placeholder="Apellido" required>
-                <input type="email" name="email" placeholder="Correo electrónico" required>
-                <select name="moneda" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 8px;">
-                    <option value="VES">Bolívar venezolano (VES)</option>
-                    <option value="USD">Dólar estadounidense (USD)</option>
-                    <option value="EUR">Euro (EUR)</option>
-                </select>
-                <input type="password" name="password" placeholder="Contraseña" required>
-                <input type="password" name="confirm_password" placeholder="Repite la contraseña" required>
-                <button type="submit" style="background-color: #1498db;">Completar registro</button>
-            </form>
-            <p><a href="{{ url_for('index') }}">Volver</a></p>
+        <div class="auth-container">
+            <div class="auth-card">
+                <h1>Crear cuenta</h1>
+                <form action="{{ url_for('handle_register') }}" method="POST">
+                    <input type="text" name="nombre" placeholder="Nombre" required>
+                    <input type="text" name="apellido" placeholder="Apellido" required>
+                    <input type="email" name="email" placeholder="Correo electrónico" required>
+                    
+                    <select name="moneda" style="width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; background: white;">
+                        <option value="VES">Bolívar venezolano (VES)</option>
+                        <option value="USD">Dólar estadounidense (USD)</option>
+                        <option value="EUR">Euro (EUR)</option>
+                    </select>
+                    
+                    <input type="password" name="password" placeholder="Contraseña" required>
+                    <input type="password" name="confirm_password" placeholder="Repite la contraseña" required>
+                    
+                    <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px; background-color: #1498db;">Completar registro</button>
+                </form>
+                <p style="margin-top: 20px;"><a href="{{ url_for('index') }}" style="color: #666; font-size: 0.9em">Volver</a></p>
+            </div>
         </div>
     </body>
 </html>
