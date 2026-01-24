@@ -9,14 +9,20 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     </head>
     <body>
-        <nav>
-            <span>AdminBuddy 2.0</span>
-            <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="/" class="nav-logo">AdminBuddy 2.0</a>
+                <div class="nav-links">
+                    <a href="/dashboard" class="nav-item active">Dashboard</a>
+                    <a href="#" class="nav-item">Historial</a>
+                    <a href="#" class="nav-item">Deudas</a>
+                    <a href="/logout" class="nav-item btn-logout">Cerrar Sesión</a>
+                </div>
         </nav>
 
         <main class="dashboard-container">
             <header class="dashboard-header">
-                <h1>Hola {{ nombre }} 🫶🏼</h1>
+                <h1>Hola <strong>{{ nombre }}</strong> 🫶🏼</h1>
                 <p>Bienvenido a tu herramienta de organización financiera, <strong>Este es el estado de tus finanzas hoy.</strong></p>
             </header>
             
@@ -40,6 +46,31 @@
                     <h4>Cashea</h4>
                     <p>$ 0.00</p>
             </section>
+
+            <section class="debts-section">
+                <div class="card">
+                    <h3>Pendientes por pagar 💳</h3>
+                    <table class="debts-table">
+                        <thead>
+                            <tr>
+                                <th>Descripción</th>
+                                <th>Cuota</th>
+                                <th>Monto</th>
+                                <th>Vence</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Zapatos (Cashea)</td>
+                                <td>2 de 3</td>
+                                <td>$15.00</td>
+                                <td>25 de enero</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
             <section class="actions">
                 <button class="btn-primary">+ Registrar Transacción</button>
             </section>
@@ -50,5 +81,49 @@
             <p>Saldo actual: $0.00</p>
         </div>
 
+        <button class="fab" onclick="openModal()">+</button>
+
+    <div id="transactionModal" class="modal">
+        <div class="modal-content auth-card">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Nueva Transacción</h2>
+            <form id="transactionForm">
+                <input type="number" step="0.01" name="monto" placeholder="Monto (Ej: 15.50)" required>
+                <input type="text" name="descripcion:" placeholder="Concepto" required>
+                <select name="categoria" class="form-select">
+                    <option value="Comida">Comida 🍔</option>
+                    <option value="Transporte">Transporte 🚌</option>
+                    <option value="Cashea">Deuda 💳</option>
+                    <option value="Servicios">Servicios 💡</option>
+                    <option value="Otros">Otros ✨</option>
+                </select>
+
+                <div style="margin: 15px 0; text-align: left;">
+                    <label><input type="radio" name="tipo" value="Gasto" checked> Gasto</label>
+                    <label style="margin-left: 20px;"><input type="radio" name="tipo" value="Ingreso"> Ingreso</label>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%;">Guardar Transacción</button>
+            </form>
+        </div>
+    </div>
+
     </body>
+
+    <script>
+        function openModal() {
+            document.getElementById("transactionModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("transactionModal").style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            let modal = document.getElementById('TransactionModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
 </html>

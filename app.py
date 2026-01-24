@@ -31,8 +31,15 @@ class Transaction(db.Model):
 
 @app.route('/')
 def index():
-    nombre=session.get('user_nombre')
-    return render_template('index.html', nombre=nombre)
+    if 'user_id' in session:
+        return redirect(url_for('dashboard'))
+    return render_template('index.html')
+
+@app.route('/dashboard')
+def dashboard():
+    if 'user_id' not in session:
+        return redirect(url_for('login_view'))
+    return render_template('dashboard.html', nombre=session.get('user_nombre'))
 
 @app.route('/login')
 def login_view():
@@ -89,7 +96,7 @@ def handle_login():
     if user and check_password_hash(user.password, password):
         session['user_id'] = user.id
         session['user_nombre'] = user.nombre
-        return redirect(url_for('index'))
+        return redirect(url_for('dashboard'))
     else:
         return "Credenciales incorrectas. <a href='/login'>Vuelve a intentarlo.</a>"
 
